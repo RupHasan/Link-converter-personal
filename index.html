@@ -9,12 +9,17 @@
 </head>
 <body>
   <h1 id="headline">Link Converter!</h1>
-  <p id="description">Turn github repo link to your projects link!</p>
-  <input type="text" placeholder="Enter URL" id="get-url">
-  <button class="btn" onclick="changeUrlFunction()" >Transform!</button>
+  <p id="description">
+    Turn github repo link to your projects link!
+  </p>
+
+  <div class="input-container">
+    <input type="text" placeholder="Enter URL" id="get-url">
+    <button class="btn" onclick="checkInput()">Transform!</button>
+  </div>
   <div class="container"></div>
-  
-  
+
+
   <script src="script.js"></script>
 </body>
 </html>
