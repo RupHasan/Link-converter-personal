@@ -1,27 +1,34 @@
-// What we will get : https://github/RupHasan/Git-learning/
-// What we have to give : https://ruphasan.github.io/Git-learning/
 function checkInput() {
   let mainUrl = document.querySelector("#get-url").value;
+  let urlArr = mainUrl.split("/")
   
   if (mainUrl == "") {
     alert("Enter a Url");
     location.reload();
   } else {
-    changeUrlFunction();
+    if(mainUrl.includes("/")) {
+      changeUrlFunction(mainUrl,urlArr);
+    } else {
+      repoToUrl(mainUrl)
+    }
   }
 }
 
-function changeUrlFunction() {
-  let mainUrl = document.querySelector("#get-url").value;
-  let urlArr = mainUrl.split("/")
+function repoToUrl(mainUrl) {
+  let arr = mainUrl.split("");
+  arr = arr.map(item => item == " " ? "-" : item);
+  let userName = "ruphasan";
+  let newUrl = `https://${userName}.github.io/${arr.join("")}/`;
+  
+  render(newUrl, mainUrl)
+}
+
+function changeUrlFunction(mainUrl, urlArr) {
   let userName = urlArr[3].toLowerCase();
   let repoName = urlArr[4];
   let newUrl = `https://${userName}.github.io/${repoName}/`;
   
-  document.querySelector(".container").innerHTML = `
-    <a href="${newUrl}"><button class="new-url">Go to ${repoName}</button></a>
-  `;
-  document.querySelector("#get-url").value = "";
+  render(newUrl, repoName);
 }
 
 document.addEventListener('keydown', function(event) {
@@ -29,3 +36,7 @@ document.addEventListener('keydown', function(event) {
     checkInput();
   }
 });
+
+function render(newUrl) {
+  window.location.href = newUrl;
+}
