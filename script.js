@@ -8,6 +8,10 @@ function checkInput() {
   } else {
     if(mainUrl.includes("/")) {
       changeUrlFunction(mainUrl,urlArr);
+    } else if (mainUrl == "change-github-username") {
+      defaultUsername = prompt("What do you want for your default username? MUST BE LOWERCASE!");
+      localStorage.setItem("defaultUsername", defaultUsername);
+      document.querySelector("#get-url").value = "";
     } else {
       repoToUrl(mainUrl)
     }
@@ -17,7 +21,7 @@ function checkInput() {
 function repoToUrl(mainUrl) {
   let arr = mainUrl.split("");
   arr = arr.map(item => item == " " ? "-" : item);
-  let userName = "ruphasan";
+  let userName = localStorage.getItem('defaultUsername');
   let newUrl = `https://${userName}.github.io/${arr.join("")}/`;
   
   render(newUrl, mainUrl)
@@ -39,4 +43,10 @@ document.addEventListener('keydown', function(event) {
 
 function render(newUrl) {
   window.location.href = newUrl;
+}
+
+if (localStorage.getItem('defaultUsername')) {
+  // Do nothing
+} else {
+  localStorage.setItem("defaultUsername", "ruphasan")
 }
